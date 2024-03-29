@@ -2,6 +2,16 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
+-- REMOVE
+local remove = vim.keymap.del
+
+-- floating terminal
+remove("n", "<leader>ft", { desc = "Terminal (Root Dir)" })
+remove("n", "<leader>fT", { desc = "Terminal (cwd)" })
+remove("n", "<c-/>", { desc = "Terminal (Root Dir)" })
+remove("n", "<c-_>", { desc = "which_key_ignore" })
+
+-- MAP
 local map = vim.keymap.set
 
 map("x", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { desc = "Dont copy replaced text" })
@@ -27,3 +37,15 @@ vim.keymap.set("n", "<C-\\>", function()
     end
   end)
 end, { desc = "Git fast push" })
+
+-- comment
+map("n", "<C-_>", function()
+  require("Comment.api").toggle.linewise.current()
+end, { desc = "Toggle comment" })
+
+map(
+  "v",
+  "<C-_>",
+  "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
+  { desc = "Toggle comment visual" }
+)
