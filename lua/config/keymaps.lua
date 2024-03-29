@@ -6,10 +6,10 @@
 local remove = vim.keymap.del
 
 -- floating terminal
-remove("n", "<leader>ft", { desc = "Terminal (Root Dir)" })
-remove("n", "<leader>fT", { desc = "Terminal (cwd)" })
-remove("n", "<c-/>", { desc = "Terminal (Root Dir)" })
-remove("n", "<c-_>", { desc = "which_key_ignore" })
+-- remove("n", "<leader>ft", { desc = "Terminal (Root Dir)" })
+-- remove("n", "<leader>fT", { desc = "Terminal (cwd)" })
+-- remove("n", "<c-/>", { desc = "Terminal (Root Dir)" })
+-- remove("n", "<c-_>", { desc = "which_key_ignore" })
 
 -- MAP
 local map = vim.keymap.set
@@ -39,16 +39,16 @@ vim.keymap.set("n", "<C-\\>", function()
 end, { desc = "Git fast push" })
 
 -- comment
-map("n", "<C-_>", function()
-  require("Comment.api").toggle.linewise.current()
-end, { desc = "Toggle comment" })
-
-map(
-  "v",
-  "<C-_>",
-  "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
-  { desc = "Toggle comment visual" }
-)
+-- map("n", "<C-_>", function()
+--   require("Comment.api").toggle.linewise.current()
+-- end, { desc = "Toggle comment" })
+--
+-- map(
+--   "v",
+--   "<C-_>",
+--   "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
+--   { desc = "Toggle comment visual" }
+-- )
 
 -- neotree
 map("n", "<tab>", function()
