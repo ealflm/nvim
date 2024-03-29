@@ -1,5 +1,3 @@
-local colors = require("tokyonight.colors").setup({ transform = true })
-
 return {
   {
     "akinsho/bufferline.nvim",
