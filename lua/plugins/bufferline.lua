@@ -13,8 +13,8 @@ return {
       },
       highlights = {
         fill = {
-          fg = colors.bg_statusline,
-          bg = colors.bg_statusline,
+          fg = "#16161e",
+          bg = "#16161e",
         },
       },
     },
