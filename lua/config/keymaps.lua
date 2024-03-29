@@ -49,3 +49,12 @@ map(
   "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
   { desc = "Toggle comment visual" }
 )
+
+-- neotree
+map("n", "<tab>", function()
+  require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd() })
+end, { desc = "Toggle neo-tree" })
+
+map("n", "<c-tab>", function()
+  require("neo-tree.command").execute({ toggle = true, dir = LazyVim.root() })
+end, { desc = "Toggle neo-tree" })
