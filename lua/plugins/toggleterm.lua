@@ -1,34 +1,84 @@
 local map = vim.keymap.set
 local fn = vim.fn
 
-local function lazygit_setup(term)
-  local lazygit = term:new({ cmd = "lazygit", direction = "float" })
+local function lazygit_setup(terminal)
+  local opts = { cmd = "lazygit", direction = "float" }
 
-  map("n", "<M-;>", function()
-    if lazygit:is_open() then
-      fn.chansend(lazygit.job_id, "3")
+  local key = "<M-;>"
+
+  local term = terminal:new(opts)
+
+  local n_action = function()
+    if term:is_open() then
+      fn.chansend(term.job_id, "3")
     end
-    lazygit:toggle()
-  end, { noremap = true, silent = true })
+    print(term.job_id)
+    term:toggle()
+  end
 
-  map("t", "<M-;>", function()
-    lazygit:toggle()
-  end, { noremap = true, silent = true })
+  local t_action = function()
+    term:toggle()
+  end
+
+  map("n", key, n_action, { noremap = true, silent = true })
+  map("t", key, t_action, { noremap = true, silent = true })
 end
 
-local function float_terminal_setup(term)
-  local float = term:new({ direction = "float" })
+local function float_terminal_setup(terminal)
+  local opts = { direction = "float" }
 
-  map("n", "<M-u>", function()
-    if float:is_open() then
-      fn.chansend(float.job_id, "3")
-    end
-    float:toggle()
-  end, { noremap = true, silent = true })
+  local key = "<M-u>"
 
-  map("t", "<M-u>", function()
-    float:toggle()
-  end, { noremap = true, silent = true })
+  local term = terminal:new(opts)
+
+  local n_action = function()
+    term:toggle()
+  end
+
+  local t_action = function()
+    term:toggle()
+  end
+
+  map("n", key, n_action, { noremap = true, silent = true })
+  map("t", key, t_action, { noremap = true, silent = true })
+end
+
+local function horizontal_terminal_setup(terminal)
+  local opts = { size = 200, direction = "horizontal" }
+
+  local key = "<M-m>"
+
+  local term = terminal:new(opts)
+
+  local n_action = function()
+    term:toggle()
+  end
+
+  local t_action = function()
+    term:toggle()
+  end
+
+  map("n", key, n_action, { noremap = true, silent = true })
+  map("t", key, t_action, { noremap = true, silent = true })
+end
+
+local function vertical_terminal_setup(terminal)
+  local opts = { size = 200, direction = "vertical" }
+
+  local key = "<M-'>"
+
+  local term = terminal:new(opts)
+
+  local n_action = function()
+    term:toggle()
+  end
+
+  local t_action = function()
+    term:toggle()
+  end
+
+  map("n", key, n_action, { noremap = true, silent = true })
+  map("t", key, t_action, { noremap = true, silent = true })
 end
 
 return {
@@ -37,12 +87,22 @@ return {
     "akinsho/toggleterm.nvim",
     version = "*",
     config = function()
-      require("toggleterm").setup()
+      require("toggleterm").setup({
+        size = function(term)
+          if term.direction == "horizontal" then
+            return vim.o.lines * 0.4
+          elseif term.direction == "vertical" then
+            return vim.o.columns * 0.4
+          end
+        end,
+      })
 
-      local term = require("toggleterm.terminal").Terminal
+      local terminal = require("toggleterm.terminal").Terminal
 
-      lazygit_setup(term)
-      float_terminal_setup(term)
+      lazygit_setup(terminal)
+      float_terminal_setup(terminal)
+      horizontal_terminal_setup(terminal)
+      vertical_terminal_setup(terminal)
     end,
   },
 }
