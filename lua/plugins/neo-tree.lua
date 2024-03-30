@@ -1,12 +1,33 @@
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
+    dependencies = { "akinsho/toggleterm.nvim" },
     opts = {
       window = {
         mappings = {
           ["<space>"] = "none",
           ["s"] = "none",
           ["<M-s>"] = "open_vsplit",
+          ["Y"] = {
+            function(state)
+              local node = state.tree:get_node()
+              local path = node:get_id()
+              ---@diagnostic disable-next-line: param-type-mismatch
+              vim.fn.setreg("+", path, "c")
+              print("yanked path: " .. path)
+            end,
+            desc = "Copy Path to Clipboard",
+          },
+          ["<M-cr>"] = {
+            function(state)
+              local node = state.tree:get_node()
+              local path = node:get_id()
+
+              local terminal_util = require("utils.toggleterm_util")
+              terminal_util.send_cmd_to_diffview_filehistory(":DiffviewFileHistory " .. path)
+            end,
+            desc = "Open in Diffview",
+          },
         },
       },
       default_component_configs = {

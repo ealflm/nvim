@@ -1,102 +1,3 @@
-local map = vim.keymap.set
-local fn = vim.fn
-
-local function is_file_or_path(input)
-  local stat = vim.loop.fs_stat(input)
-  if stat then
-    if stat.type == "directory" then
-      return "path"
-    elseif stat.type == "file" then
-      return "file"
-    end
-  else
-    return "not found"
-  end
-end
-
-local function lazygit_setup(terminal)
-  local opts = { cmd = "lazygit", direction = "float" }
-
-  local key = "<M-;>"
-
-  local term = terminal:new(opts)
-
-  local n_action = function()
-    term:toggle()
-  end
-
-  local t_action = function()
-    term:toggle()
-  end
-
-  local open_file_action = function()
-    if term:is_open() then
-      fn.chansend(term.job_id, "Y")
-      local cliptext = fn.getreg("*")
-
-      local type = is_file_or_path(cliptext)
-
-      if type == "file" then
-        term:toggle()
-        vim.cmd(":e " .. cliptext)
-      end
-    end
-  end
-
-  map("n", key, n_action, { noremap = true, silent = true })
-  map("t", key, t_action, { noremap = true, silent = true })
-  map("t", "<M-cr>", open_file_action, { noremap = true, silent = true })
-end
-
-local function diffview_setup(terminal)
-  local opts = { cmd = "nvim --cmd 'let g:clearmode=1' -c 'DiffviewOpen'", direction = "float" }
-
-  local key = "<M-e>"
-
-  local term = terminal:new(opts)
-
-  local n_action = function()
-    term:toggle()
-  end
-
-  local t_action = function()
-    term:toggle()
-  end
-
-  map("n", key, n_action, { noremap = true, silent = true })
-  map("t", key, t_action, { noremap = true, silent = true })
-end
-
-local function float_terminal_setup()
-  local key = "<M-u>"
-
-  local n_action = "<cmd>9ToggleTerm direction=float<cr>"
-  local t_action = "<cmd>9ToggleTerm direction=float<cr>"
-
-  map("n", key, n_action, { noremap = true, silent = true })
-  map("t", key, t_action, { noremap = true, silent = true })
-end
-
-local function horizontal_terminal_setup()
-  local key = "<M-m>"
-
-  local n_action = "<cmd>7ToggleTerm direction=horizontal<cr>"
-  local t_action = "<cmd>7ToggleTerm direction=horizontal<cr>"
-
-  map("n", key, n_action, { noremap = true, silent = true })
-  map("t", key, t_action, { noremap = true, silent = true })
-end
-
-local function vertical_terminal_setup()
-  local key = "<M-'>"
-
-  local n_action = "<cmd>10ToggleTerm direction=vertical<cr>"
-  local t_action = "<cmd>10ToggleTerm direction=vertical<cr>"
-
-  map("n", key, n_action, { noremap = true, silent = true })
-  map("t", key, t_action, { noremap = true, silent = true })
-end
-
 return {
   {
     event = "VeryLazy",
@@ -114,12 +15,14 @@ return {
       })
 
       local terminal = require("toggleterm.terminal").Terminal
+      local terminal_util = require("utils.toggleterm_util")
 
-      lazygit_setup(terminal)
-      diffview_setup(terminal)
-      float_terminal_setup()
-      horizontal_terminal_setup()
-      vertical_terminal_setup()
+      terminal_util.lazygit_setup(terminal)
+      terminal_util.diffview_setup(terminal)
+      terminal_util.diffview_filehistory_setup(terminal)
+      terminal_util.float_terminal_setup()
+      terminal_util.horizontal_terminal_setup()
+      terminal_util.vertical_terminal_setup()
     end,
   },
 }
