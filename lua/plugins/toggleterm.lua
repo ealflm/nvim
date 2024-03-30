@@ -1,6 +1,19 @@
 local map = vim.keymap.set
 local fn = vim.fn
 
+local function is_file_or_path(input)
+  local stat = vim.loop.fs_stat(input)
+  if stat then
+    if stat.type == "directory" then
+      return "path"
+    elseif stat.type == "file" then
+      return "file"
+    end
+  else
+    return "not found"
+  end
+end
+
 local function lazygit_setup(terminal)
   local opts = { cmd = "lazygit", direction = "float" }
 
@@ -9,18 +22,33 @@ local function lazygit_setup(terminal)
   local term = terminal:new(opts)
 
   local n_action = function()
-    if term:is_open() then
-      fn.chansend(term.job_id, "3")
-    end
     term:toggle()
+    if term:is_open() then
+      fn.chansend(term.job_id, "2R")
+    end
   end
 
   local t_action = function()
     term:toggle()
   end
 
+  local open_file_action = function()
+    if term:is_open() then
+      fn.chansend(term.job_id, "Y")
+      local cliptext = fn.getreg("*")
+
+      local type = is_file_or_path(cliptext)
+
+      if type == "file" then
+        term:toggle()
+        vim.cmd(":e " .. cliptext)
+      end
+    end
+  end
+
   map("n", key, n_action, { noremap = true, silent = true })
   map("t", key, t_action, { noremap = true, silent = true })
+  map("t", "<M-cr>", open_file_action, { noremap = true, silent = true })
 end
 
 local function float_terminal_setup()
