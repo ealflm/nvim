@@ -23,7 +23,6 @@ return {
       local terminal = require("toggleterm.terminal").Terminal
       local util = require("utils.toggleterm_util")
 
-      util.lazygit_setup(terminal)
       util.diffview_setup(terminal)
       util.diffview_filehistory_setup(terminal)
       util.float_terminal_setup()

@@ -12,6 +12,7 @@ remove("n", "<c-/>", { desc = "Terminal (Root Dir)" })
 remove("n", "<c-_>", { desc = "which_key_ignore" })
 remove("n", "<leader>gg", { desc = "Lazygit (Root Dir)" })
 remove("n", "<leader>gG", { desc = "Lazygit (cwd)" })
+remove("n", "<leader>gf", { desc = "Lazygit Current File History" })
 
 -- MAP
 local map = vim.keymap.set
