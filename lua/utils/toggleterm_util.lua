@@ -28,6 +28,7 @@ M.lazygit_setup = function(terminal)
 
   local n_action = function()
     term:toggle()
+    fn.chansend(term.job_id, ";")
   end
 
   local t_action = function()
@@ -62,6 +63,7 @@ M.diffview_setup = function(terminal)
 
   local n_action = function()
     term:toggle()
+    fn.chansend(term.job_id, "R")
   end
 
   local t_action = function()
@@ -83,6 +85,7 @@ M.diffview_filehistory_setup = function(terminal)
 
   local n_action = function()
     diffview_filehistory_term:toggle()
+    fn.chansend(diffview_filehistory_term.job_id, "R")
   end
 
   local t_action = function()
@@ -95,9 +98,8 @@ end
 
 M.send_cmd_to_diffview_filehistory = function(cmd)
   if diffview_filehistory_term ~= nil then
-    if not diffview_filehistory_term:is_open() then
-      diffview_filehistory_term:toggle()
-    end
+    diffview_filehistory_term:toggle()
+    fn.chansend(diffview_filehistory_term.job_id, "R")
     fn.chansend(diffview_filehistory_term.job_id, { cmd, "" })
   end
 end
