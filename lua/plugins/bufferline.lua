@@ -1,5 +1,3 @@
-local x = false
-return {}
 return {
   {
     "akinsho/bufferline.nvim",

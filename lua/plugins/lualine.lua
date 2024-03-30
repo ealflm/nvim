@@ -7,6 +7,19 @@ return {
         globalstatus = true,
         disabled_filetypes = { statusline = {} },
       },
+      sections = {
+        lualine_c = {
+          {
+            "diagnostics",
+            symbols = {
+              error = " ",
+              warn = " ",
+              info = " ",
+              hint = " ",
+            },
+          },
+        },
+      },
     },
   },
 }
