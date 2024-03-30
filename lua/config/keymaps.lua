@@ -10,6 +10,8 @@ local remove = vim.keymap.del
 -- remove("n", "<leader>fT", { desc = "Terminal (cwd)" })
 -- remove("n", "<c-/>", { desc = "Terminal (Root Dir)" })
 -- remove("n", "<c-_>", { desc = "which_key_ignore" })
+remove("n", "<leader>gg", { desc = "Lazygit (Root Dir)" })
+remove("n", "<leader>gG", { desc = "Lazygit (cwd)" })
 
 -- MAP
 local map = vim.keymap.set
