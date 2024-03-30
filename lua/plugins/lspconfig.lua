@@ -1,3 +1,5 @@
+local map = vim.keymap.set
+
 return {
   {
     "neovim/nvim-lspconfig",
@@ -13,5 +15,10 @@ return {
         },
       },
     },
+    init = function()
+      map("n", "<A-cr>", function()
+        vim.lsp.buf.code_action()
+      end, { desc = "LSP code action" })
+    end,
   },
 }
