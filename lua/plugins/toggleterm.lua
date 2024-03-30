@@ -1,81 +1,41 @@
 local map = vim.keymap.set
 local fn = vim.fn
 
-local function lazygit_setup(terminal)
-  local opts = { cmd = "lazygit", direction = "float" }
-
+local function lazygit_setup()
   local key = "<M-;>"
 
-  local term = terminal:new(opts)
-
-  local n_action = function()
-    if term:is_open() then
-      fn.chansend(term.job_id, "3")
-    end
-    print(term.job_id)
-    term:toggle()
-  end
-
-  local t_action = function()
-    term:toggle()
-  end
+  local n_action = "<cmd>20ToggleTerm cmd=lazygit direction=float<cr>"
+  local t_action = "<cmd>20ToggleTerm cmd=lazygit direction=float<cr>"
 
   map("n", key, n_action, { noremap = true, silent = true })
   map("t", key, t_action, { noremap = true, silent = true })
 end
 
-local function float_terminal_setup(terminal)
-  local opts = { direction = "float" }
-
+local function float_terminal_setup()
   local key = "<M-u>"
 
-  local term = terminal:new(opts)
-
-  local n_action = function()
-    term:toggle()
-  end
-
-  local t_action = function()
-    term:toggle()
-  end
+  local n_action = "<cmd>9ToggleTerm direction=float<cr>"
+  local t_action = "<cmd>9ToggleTerm direction=float<cr>"
 
   map("n", key, n_action, { noremap = true, silent = true })
   map("t", key, t_action, { noremap = true, silent = true })
 end
 
-local function horizontal_terminal_setup(terminal)
-  local opts = { size = 200, direction = "horizontal" }
-
+local function horizontal_terminal_setup()
   local key = "<M-m>"
 
-  local term = terminal:new(opts)
-
-  local n_action = function()
-    term:toggle()
-  end
-
-  local t_action = function()
-    term:toggle()
-  end
+  local n_action = "<cmd>7ToggleTerm direction=horizontal<cr>"
+  local t_action = "<cmd>7ToggleTerm direction=horizontal<cr>"
 
   map("n", key, n_action, { noremap = true, silent = true })
   map("t", key, t_action, { noremap = true, silent = true })
 end
 
-local function vertical_terminal_setup(terminal)
-  local opts = { size = 200, direction = "vertical" }
-
+local function vertical_terminal_setup()
   local key = "<M-'>"
 
-  local term = terminal:new(opts)
-
-  local n_action = function()
-    term:toggle()
-  end
-
-  local t_action = function()
-    term:toggle()
-  end
+  local n_action = "<cmd>10ToggleTerm direction=vertical<cr>"
+  local t_action = "<cmd>10ToggleTerm direction=vertical<cr>"
 
   map("n", key, n_action, { noremap = true, silent = true })
   map("t", key, t_action, { noremap = true, silent = true })
@@ -97,12 +57,10 @@ return {
         end,
       })
 
-      local terminal = require("toggleterm.terminal").Terminal
-
-      lazygit_setup(terminal)
-      float_terminal_setup(terminal)
-      horizontal_terminal_setup(terminal)
-      vertical_terminal_setup(terminal)
+      lazygit_setup()
+      float_terminal_setup()
+      horizontal_terminal_setup()
+      vertical_terminal_setup()
     end,
   },
 }
