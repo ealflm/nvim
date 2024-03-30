@@ -17,17 +17,17 @@ local function lazygit_setup(term)
 end
 
 local function float_terminal_setup(term)
-  local lazygit = term:new({ direction = "float" })
+  local float = term:new({ direction = "float" })
 
   map("n", "<M-u>", function()
-    if lazygit:is_open() then
-      fn.chansend(lazygit.job_id, "3")
+    if float:is_open() then
+      fn.chansend(float.job_id, "3")
     end
-    lazygit:toggle()
+    float:toggle()
   end, { noremap = true, silent = true })
 
   map("t", "<M-u>", function()
-    lazygit:toggle()
+    float:toggle()
   end, { noremap = true, silent = true })
 end
 
