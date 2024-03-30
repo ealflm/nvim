@@ -1,11 +1,23 @@
 local map = vim.keymap.set
 local fn = vim.fn
 
-local function lazygit_setup()
+local function lazygit_setup(terminal)
+  local opts = { cmd = "lazygit", direction = "float" }
+
   local key = "<M-;>"
 
-  local n_action = "<cmd>20ToggleTerm cmd=lazygit direction=float<cr>"
-  local t_action = "<cmd>20ToggleTerm cmd=lazygit direction=float<cr>"
+  local term = terminal:new(opts)
+
+  local n_action = function()
+    if term:is_open() then
+      fn.chansend(term.job_id, "3")
+    end
+    term:toggle()
+  end
+
+  local t_action = function()
+    term:toggle()
+  end
 
   map("n", key, n_action, { noremap = true, silent = true })
   map("t", key, t_action, { noremap = true, silent = true })
@@ -57,7 +69,9 @@ return {
         end,
       })
 
-      lazygit_setup()
+      local terminal = require("toggleterm.terminal").Terminal
+
+      lazygit_setup(terminal)
       float_terminal_setup()
       horizontal_terminal_setup()
       vertical_terminal_setup()
