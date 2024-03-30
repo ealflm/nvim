@@ -23,9 +23,6 @@ local function lazygit_setup(terminal)
 
   local n_action = function()
     term:toggle()
-    if term:is_open() then
-      fn.chansend(term.job_id, "2R")
-    end
   end
 
   local t_action = function()
