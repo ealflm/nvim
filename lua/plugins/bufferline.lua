@@ -1,3 +1,5 @@
+local x = false
+return {}
 return {
   {
     "akinsho/bufferline.nvim",
@@ -8,6 +10,10 @@ return {
     opts = {
       options = {
         always_show_bufferline = true,
+        diagnostics_indicator = function(count, level)
+          local icon = level:match("error") and " " or " "
+          return " " .. icon .. count
+        end,
       },
       highlights = {
         fill = {
