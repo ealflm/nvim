@@ -19,7 +19,7 @@ return {
             renamed = "R", -- this can only be used in the git_status source
             -- Status type
             untracked = "",
-            ignored = "!",
+            ignored = "",
             unstaged = "",
             staged = "",
             conflict = "",
