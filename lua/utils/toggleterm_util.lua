@@ -20,7 +20,7 @@ M.toggle_all_term = function()
 end
 
 M.lazygit_setup = function(terminal)
-  local opts = { cmd = "lazygit", direction = "float" }
+  local opts = { cmd = "powershell -Command lazygit", direction = "float" }
 
   local key = "<M-;>"
 
