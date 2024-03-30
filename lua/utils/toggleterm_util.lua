@@ -15,6 +15,10 @@ local is_file_or_path = function(input)
   end
 end
 
+M.toggle_all_term = function()
+  vim.cmd("ToggleTermToggleAll")
+end
+
 M.lazygit_setup = function(terminal)
   local opts = { cmd = "lazygit", direction = "float" }
 

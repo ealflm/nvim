@@ -1,3 +1,9 @@
+if vim.g.clearmode == 1 then
+  return {}
+end
+
+local map = vim.keymap.set
+
 return {
   {
     event = "VeryLazy",
@@ -15,14 +21,16 @@ return {
       })
 
       local terminal = require("toggleterm.terminal").Terminal
-      local terminal_util = require("utils.toggleterm_util")
+      local util = require("utils.toggleterm_util")
 
-      terminal_util.lazygit_setup(terminal)
-      terminal_util.diffview_setup(terminal)
-      terminal_util.diffview_filehistory_setup(terminal)
-      terminal_util.float_terminal_setup()
-      terminal_util.horizontal_terminal_setup()
-      terminal_util.vertical_terminal_setup()
+      util.lazygit_setup(terminal)
+      util.diffview_setup(terminal)
+      util.diffview_filehistory_setup(terminal)
+      util.float_terminal_setup()
+      util.horizontal_terminal_setup()
+      util.vertical_terminal_setup()
+
+      map("t", "<A-q>", util.toggle_all_term, { noremap = true, silent = true })
     end,
   },
 }
