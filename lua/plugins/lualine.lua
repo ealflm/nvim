@@ -1,3 +1,12 @@
+if vim.g.clearmode == 1 then
+  return {
+    {
+      "nvim-lualine/lualine.nvim",
+      enabled = false,
+    },
+  }
+end
+
 return {
   {
     "nvim-lualine/lualine.nvim",

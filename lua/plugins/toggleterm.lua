@@ -48,6 +48,25 @@ local function lazygit_setup(terminal)
   map("t", "<M-cr>", open_file_action, { noremap = true, silent = true })
 end
 
+local function diffview_setup(terminal)
+  local opts = { cmd = "nvim --cmd 'let g:clearmode=1' -c 'DiffviewOpen'", direction = "float" }
+
+  local key = "<M-e>"
+
+  local term = terminal:new(opts)
+
+  local n_action = function()
+    term:toggle()
+  end
+
+  local t_action = function()
+    term:toggle()
+  end
+
+  map("n", key, n_action, { noremap = true, silent = true })
+  map("t", key, t_action, { noremap = true, silent = true })
+end
+
 local function float_terminal_setup()
   local key = "<M-u>"
 
@@ -97,6 +116,7 @@ return {
       local terminal = require("toggleterm.terminal").Terminal
 
       lazygit_setup(terminal)
+      diffview_setup(terminal)
       float_terminal_setup()
       horizontal_terminal_setup()
       vertical_terminal_setup()

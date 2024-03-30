@@ -18,3 +18,6 @@ opt.shellredir = '2>&1 | %{ "$_" } | Out-File %s; exit $LastExitCode'
 opt.shellpipe = '2>&1 | %{ "$_" } | tee %s; exit $LastExitCode'
 opt.shellquote = ""
 opt.shellxquote = ""
+
+-- Disable swapfile backup
+opt.swapfile = false

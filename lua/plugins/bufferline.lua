@@ -1,3 +1,12 @@
+if vim.g.clearmode == 1 then
+  return {
+    {
+      "akinsho/bufferline.nvim",
+      enabled = false,
+    },
+  }
+end
+
 return {
   {
     "akinsho/bufferline.nvim",
