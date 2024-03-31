@@ -23,6 +23,8 @@ map("x", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { desc = "Dont copy replaced text
 
 map("x", "<C-c>", '"+y', { desc = "Copy to system" })
 
+map("n", "<A-v>", "<C-v>", { noremap = true })
+
 -- git
 vim.keymap.set("n", "<A-\\>", function()
   vim.ui.input({ prompt = "Do you want to commit all (Y/N): " }, function(input)
