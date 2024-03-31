@@ -1,3 +1,4 @@
+-- STORE DAP CONFIG
 local js_based_languages = {
   "typescript",
   "javascript",

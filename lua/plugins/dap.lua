@@ -1,3 +1,4 @@
+-- STORE DAP CONFIG
 return {
   {
     "mfussenegger/nvim-dap",
