@@ -1,6 +1,9 @@
 return {
   {
     "stevearc/aerial.nvim",
+    dependencies = {
+      "folke/trouble.nvim",
+    },
     opts = {
       layout = {
         -- These control the width of the aerial window.
@@ -31,6 +34,9 @@ return {
         -- Preserve window size equality with (:help CTRL-W_=)
         preserve_equality = false,
       },
+    },
+    keys = {
+      { "<leader>cs", "<cmd>AerialToggle<cr>", desc = "Aerial (Symbols)" },
     },
   },
 }
