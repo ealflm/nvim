@@ -1,5 +1,6 @@
 local M = {}
 local map = vim.keymap.set
+local remove_map = vim.keymap.del
 local fn = vim.fn
 
 local is_file_or_path = function(input)
@@ -58,7 +59,23 @@ M.lazygit_setup = function(terminal)
 end
 
 M.diffview_setup = function(terminal)
-  local opts = { cmd = "nvim --cmd 'let g:clearmode=1' -c 'DiffviewOpen'", direction = "float" }
+  local opts = {
+    cmd = "nvim --cmd 'let g:clearmode=1' -c 'DiffviewOpen'",
+    direction = "float",
+
+    on_open = function(_)
+      remove_map("t", "<C-h>", { desc = "Go to Left Window", remap = true })
+      remove_map("t", "<C-j>", { desc = "Go to Lower Window", remap = true })
+      remove_map("t", "<C-k>", { desc = "Go to Upper Window", remap = true })
+      remove_map("t", "<C-l>", { desc = "Go to Right Window", remap = true })
+    end,
+    on_close = function(_)
+      map("t", "<C-h>", "<C-w>h", { desc = "Go to Left Window", remap = true })
+      map("t", "<C-j>", "<C-w>j", { desc = "Go to Lower Window", remap = true })
+      map("t", "<C-k>", "<C-w>k", { desc = "Go to Upper Window", remap = true })
+      map("t", "<C-l>", "<C-w>l", { desc = "Go to Right Window", remap = true })
+    end,
+  }
 
   local key = "<M-e>"
 
@@ -80,7 +97,23 @@ end
 local diffview_filehistory_term = nil
 
 M.diffview_filehistory_setup = function(terminal)
-  local opts = { cmd = "nvim --cmd 'let g:clearmode=1' -c 'DiffviewFileHistory'", direction = "float" }
+  local opts = {
+    cmd = "nvim --cmd 'let g:clearmode=1' -c 'DiffviewFileHistory'",
+    direction = "float",
+
+    on_open = function(_)
+      remove_map("t", "<C-h>", { desc = "Go to Left Window", remap = true })
+      remove_map("t", "<C-j>", { desc = "Go to Lower Window", remap = true })
+      remove_map("t", "<C-k>", { desc = "Go to Upper Window", remap = true })
+      remove_map("t", "<C-l>", { desc = "Go to Right Window", remap = true })
+    end,
+    on_close = function(_)
+      map("t", "<C-h>", "<C-w>h", { desc = "Go to Left Window", remap = true })
+      map("t", "<C-j>", "<C-w>j", { desc = "Go to Lower Window", remap = true })
+      map("t", "<C-k>", "<C-w>k", { desc = "Go to Upper Window", remap = true })
+      map("t", "<C-l>", "<C-w>l", { desc = "Go to Right Window", remap = true })
+    end,
+  }
 
   local key = "<M-S-e>"
 
@@ -88,7 +121,6 @@ M.diffview_filehistory_setup = function(terminal)
 
   local n_action = function()
     diffview_filehistory_term:toggle()
-    fn.chansend(diffview_filehistory_term.job_id, "R")
   end
 
   local t_action = function()
