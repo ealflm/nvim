@@ -3,6 +3,9 @@ local map = vim.keymap.set
 return {
   {
     "neovim/nvim-lspconfig",
+    dependencies = {
+      "github/copilot.vim",
+    },
     opts = {
       diagnostics = {
         signs = {
