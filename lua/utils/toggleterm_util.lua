@@ -29,6 +29,9 @@ M.lazygit_setup = function(terminal)
   local n_action = function()
     term:toggle()
     fn.chansend(term.job_id, ";")
+
+    -- Avoid screen lag bug
+    vim.cmd("norm 0")
   end
 
   local t_action = function()
