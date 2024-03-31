@@ -3,6 +3,7 @@
 -- Add any additional options here
 
 local opt = vim.opt
+local g = vim.g
 
 -- General
 opt.autoread = true
@@ -24,3 +25,6 @@ opt.swapfile = false
 
 -- Change diff symbol
 opt.fillchars = opt.fillchars + "diff:."
+
+-- Connect to vscode snippets
+g.vscode_snippets_path = "C:/Users/ealflm/AppData/Roaming/Code/User/snippets"
