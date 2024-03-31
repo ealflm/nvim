@@ -14,6 +14,7 @@ return {
         end,
         desc = "Flash",
       },
+
       {
         "s",
         mode = { "n", "o", "x" },
