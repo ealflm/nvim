@@ -24,6 +24,8 @@ map("x", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { desc = "Dont copy replaced text
 map("x", "<C-c>", '"+y', { desc = "Copy to system" })
 
 map("n", "<A-v>", "<C-v>", { noremap = true })
+map("n", "<A-i>", "<C-i>", { noremap = true })
+map("n", "<A-o>", "<C-o>", { noremap = true })
 
 -- git
 vim.keymap.set("n", "<A-\\>", function()
