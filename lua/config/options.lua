@@ -24,7 +24,12 @@ opt.shellxquote = ""
 opt.swapfile = false
 
 -- Change diff symbol
-opt.fillchars = opt.fillchars + "diff:."
+opt.fillchars = opt.fillchars + "diff:░" -- alternatives = ⣿ ░ ─ .
 
 -- Connect to vscode snippets
 g.vscode_snippets_path = "C:/Users/ealflm/AppData/Roaming/Code/User/snippets"
+
+-- Neovide
+opt.guifont = { "JetBrainsMonoNL Nerd Font", ":h13" }
+g.neovide_input_macos_alt_is_meta = true
+g.neovide_cursor_vfx_mode = "torpedo"
