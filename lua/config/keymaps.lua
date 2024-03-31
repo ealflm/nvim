@@ -64,6 +64,3 @@ end, { desc = "Toggle neo-tree" })
 map("n", "<c-tab>", function()
   require("neo-tree.command").execute({ toggle = true, dir = LazyVim.root() })
 end, { desc = "Toggle neo-tree" })
-
--- floating terminal
-map("t", "<C-x>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
