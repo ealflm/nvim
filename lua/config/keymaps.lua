@@ -13,14 +13,17 @@ remove("n", "<c-_>", { desc = "which_key_ignore" })
 remove("n", "<leader>gg", { desc = "Lazygit (Root Dir)" })
 remove("n", "<leader>gG", { desc = "Lazygit (cwd)" })
 remove("n", "<leader>gf", { desc = "Lazygit Current File History" })
+remove("t", "<esc><esc>", { desc = "Enter Normal Mode" })
 
 -- MAP
 local map = vim.keymap.set
 
+-- general
 map("x", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { desc = "Dont copy replaced text" })
 
 map("x", "<C-c>", '"+y', { desc = "Copy to system" })
 
+-- git
 vim.keymap.set("n", "<A-\\>", function()
   vim.ui.input({ prompt = "Do you want to commit all (Y/N): " }, function(input)
     if input and ((input == "") or string.lower(input) == "y") then
@@ -61,3 +64,6 @@ end, { desc = "Toggle neo-tree" })
 map("n", "<c-tab>", function()
   require("neo-tree.command").execute({ toggle = true, dir = LazyVim.root() })
 end, { desc = "Toggle neo-tree" })
+
+-- floating terminal
+map("t", "<C-x>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
