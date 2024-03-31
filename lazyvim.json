@@ -4,7 +4,8 @@
     "lazyvim.plugins.extras.dap.core",
     "lazyvim.plugins.extras.dap.nlua",
     "lazyvim.plugins.extras.editor.aerial",
-    "lazyvim.plugins.extras.editor.dial"
+    "lazyvim.plugins.extras.editor.dial",
+    "lazyvim.plugins.extras.editor.harpoon2"
   ],
   "news": {
     "NEWS.md": "3415"
