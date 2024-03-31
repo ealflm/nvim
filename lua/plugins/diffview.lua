@@ -2,8 +2,6 @@ if vim.g.clearmode ~= 1 then
   return {}
 end
 
-local map = vim.keymap.set
-
 return {
   {
     "sindrets/diffview.nvim",
