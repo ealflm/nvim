@@ -21,3 +21,6 @@ opt.shellxquote = ""
 
 -- Disable swapfile backup
 opt.swapfile = false
+
+-- Change diff symbol
+opt.fillchars = opt.fillchars + "diff:."
