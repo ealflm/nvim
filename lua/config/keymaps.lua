@@ -25,25 +25,26 @@ map("x", "<C-c>", '"+y', { desc = "Copy to system" })
 
 map("n", "<A-v>", "<C-v>", { noremap = true })
 map("n", "<A-i>", "<C-i>", { noremap = true })
+
 map("n", "<A-o>", "<C-o>", { noremap = true })
 
 -- git
 vim.keymap.set("n", "<A-\\>", function()
-  vim.ui.input({ prompt = "Do you want to commit all (Y/N): " }, function(input)
-    if input and ((input == "") or string.lower(input) == "y") then
-      vim.cmd('!git add . && git commit -m "WIP"')
+  vim.ui.input({ prompt = "Commit Summary: " }, function(input)
+    if input and input ~= "" then
+      vim.cmd('!git add . && git commit -m "WIP" && git push')
     else
-      vim.cmd("echo ''")
+      vim.cmd('!git add . && git commit -m "' .. input .. '" && git push')
     end
   end)
 end, { desc = "Git fast commit" })
 
 vim.keymap.set("n", "<C-\\>", function()
-  vim.ui.input({ prompt = "Do you want to push all (Y/N): " }, function(input)
-    if input and ((input == "") or string.lower(input) == "y") then
+  vim.ui.input({ prompt = "Commit Summary: " }, function(input)
+    if input and input ~= "" then
       vim.cmd('!git add . && git commit -m "WIP" && git push')
     else
-      vim.cmd("echo ''")
+      vim.cmd('!git add . && git commit -m "' .. input .. '" && git push')
     end
   end)
 end, { desc = "Git fast push" })
