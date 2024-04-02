@@ -31,8 +31,8 @@ map("n", "<A-o>", "<C-o>", { noremap = true })
 -- git
 vim.keymap.set("n", "<A-\\>", function()
   vim.ui.input({ prompt = "Commit Summary: " }, function(input)
-    if input and input ~= "" then
-      vim.cmd('!git add . && git commit -m "WIP" && git push')
+    if input == nil or input == false or input == "" then
+      vim.cmd('!git add . && git commit -m "WIP"')
     else
       vim.cmd('!git add . && git commit -m "' .. input .. '" && git push')
     end
@@ -41,7 +41,7 @@ end, { desc = "Git fast commit" })
 
 vim.keymap.set("n", "<C-\\>", function()
   vim.ui.input({ prompt = "Commit Summary: " }, function(input)
-    if input and input ~= "" then
+    if input == nil or input == false or input == "" then
       vim.cmd('!git add . && git commit -m "WIP" && git push')
     else
       vim.cmd('!git add . && git commit -m "' .. input .. '" && git push')
