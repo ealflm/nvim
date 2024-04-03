@@ -16,7 +16,7 @@ return {
               vim.fn.setreg("+", path, "c")
               print("yanked path: " .. path)
             end,
-            desc = "Copy Path to Clipboard",
+            desc = "copy path to clipboard",
           },
           ["<M-cr>"] = {
             function(state)
@@ -26,7 +26,17 @@ return {
               local terminal_util = require("utils.toggleterm_util")
               terminal_util.send_cmd_to_diffview_filehistory(":DiffviewFileHistory " .. path)
             end,
-            desc = "Open in Diffview",
+            desc = "open in diffview",
+          },
+          ["h"] = {
+            function(state)
+              local node = state.tree:get_node()
+              local path = node:get_id()
+
+              print("Opening: " .. path)
+              vim.cmd("silent !explorer " .. path)
+            end,
+            desc = "open in explorer",
           },
         },
       },
