@@ -1,3 +1,7 @@
+if vim.g.clearmode == 1 then
+  return {}
+end
+
 return {
   {
     "github/copilot.vim",
