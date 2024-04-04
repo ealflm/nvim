@@ -26,9 +26,13 @@ return {
       util.lazygit_setup(terminal)
       util.diffview_setup(terminal)
       util.diffview_filehistory_setup(terminal)
-      util.float_terminal_setup()
-      util.horizontal_terminal_setup()
-      util.vertical_terminal_setup()
+      util.float_terminal_setup(terminal)
+      util.horizontal_terminal_setup(terminal)
+      util.vertical_terminal_setup(terminal)
+
+      map("n", "<A-f>", function()
+        util.kill_all_job()
+      end, { noremap = true, silent = true })
 
       map("t", "<A-q>", util.toggle_all_term, { noremap = true, silent = true })
     end,
