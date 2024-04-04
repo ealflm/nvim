@@ -258,14 +258,16 @@ M.vertical_terminal_setup = function(terminal)
 end
 
 M.kill_all_job = function()
-  local buffers = vim.api.nvim_list_bufs()
-
-  for _, buf in ipairs(buffers) do
-    if vim.api.nvim_buf_get_option(buf, "buftype") == "terminal" then
-      print("Close buffer: " .. buf)
-      vim.cmd(buf .. "bd!")
-    end
+  if #job_ids == 0 then
+    return
   end
+  local cmd = "!taskkill /F "
+  for _, v in pairs(job_ids) do
+    local pid = vim.fn.jobpid(v)
+    cmd = cmd .. " /PID " .. pid
+  end
+  job_ids = {}
+  vim.cmd(cmd)
 end
 
 return M

@@ -30,9 +30,11 @@ return {
       util.horizontal_terminal_setup(terminal)
       util.vertical_terminal_setup(terminal)
 
-      map("n", "<A-f>", function()
-        util.kill_all_job()
-      end, { noremap = true, silent = true })
+      vim.api.nvim_create_autocmd("ExitPre", {
+        callback = function()
+          util.kill_all_job()
+        end,
+      })
 
       map("t", "<A-q>", util.toggle_all_term, { noremap = true, silent = true })
     end,
