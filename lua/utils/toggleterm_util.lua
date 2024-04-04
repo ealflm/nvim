@@ -3,6 +3,8 @@ local map = vim.keymap.set
 local remove_map = vim.keymap.del
 local fn = vim.fn
 
+local job_ids = {}
+
 local is_file_or_path = function(input)
   local stat = vim.loop.fs_stat(input)
   if stat then
@@ -16,6 +18,15 @@ local is_file_or_path = function(input)
   end
 end
 
+local function contains_value(table, value)
+  for _, v in pairs(table) do
+    if v == value then
+      return true
+    end
+  end
+  return false
+end
+
 M.toggle_all_term = function()
   vim.cmd("ToggleTermToggleAll")
 end
@@ -24,6 +35,11 @@ M.lazygit_setup = function(terminal)
   local opts = {
     cmd = "lazygit",
     direction = "float",
+    on_open = function(term)
+      if not contains_value(job_ids, term.job_id) then
+        table.insert(job_ids, term.job_id)
+      end
+    end,
   }
 
   local key = "<M-;>"
@@ -67,6 +83,9 @@ M.diffview_setup = function(terminal)
     direction = "float",
 
     on_open = function(term)
+      if not contains_value(job_ids, term.job_id) then
+        table.insert(job_ids, term.job_id)
+      end
       remove_map("t", "<C-h>", { desc = "Go to Left Window", remap = true })
       remove_map("t", "<C-j>", { desc = "Go to Lower Window", remap = true })
       remove_map("t", "<C-k>", { desc = "Go to Upper Window", remap = true })
@@ -105,6 +124,10 @@ M.diffview_filehistory_setup = function(terminal)
     direction = "float",
 
     on_open = function(term)
+      if not contains_value(job_ids, term.job_id) then
+        table.insert(job_ids, term.job_id)
+      end
+
       remove_map("t", "<C-h>", { desc = "Go to Left Window", remap = true })
       remove_map("t", "<C-j>", { desc = "Go to Lower Window", remap = true })
       remove_map("t", "<C-k>", { desc = "Go to Upper Window", remap = true })
@@ -147,6 +170,10 @@ M.float_terminal_setup = function(terminal)
     direction = "float",
 
     on_open = function(term)
+      if not contains_value(job_ids, term.job_id) then
+        table.insert(job_ids, term.job_id)
+      end
+
       remove_map("t", "<C-h>", { desc = "Go to Left Window", remap = true })
       remove_map("t", "<C-j>", { desc = "Go to Lower Window", remap = true })
       remove_map("t", "<C-k>", { desc = "Go to Upper Window", remap = true })
@@ -179,6 +206,12 @@ end
 M.horizontal_terminal_setup = function(terminal)
   local opts = {
     direction = "horizontal",
+
+    on_open = function(term)
+      if not contains_value(job_ids, term.job_id) then
+        table.insert(job_ids, term.job_id)
+      end
+    end,
   }
 
   local key = "<M-m>"
@@ -200,6 +233,12 @@ end
 M.vertical_terminal_setup = function(terminal)
   local opts = {
     direction = "vertical",
+
+    on_open = function(term)
+      if not contains_value(job_ids, term.job_id) then
+        table.insert(job_ids, term.job_id)
+      end
+    end,
   }
 
   local key = "<M-'>"
